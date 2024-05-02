@@ -1,0 +1,23 @@
+[package]
+name = "quake_clientinfo"
+description = "Parse QuakeWorld clientinfo strings."
+categories = ["parsing"]
+keywords = ["quake", "quakeworld"]
+repository = "https://github.com/vikpe/quake_clientinfo"
+authors = ["Viktor Persson <viktor.persson@arcsin.se>"]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+include = [
+    "/Cargo.toml",
+    "/README.md",
+    "/src/**",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+quake_infostring = "0.1.0"
+
+[dev-dependencies]
+pretty_assertions = "1.4.0"
