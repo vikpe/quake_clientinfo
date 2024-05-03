@@ -72,17 +72,16 @@ mod tests {
 
     #[test]
     fn test_from_hashmap() {
-        let map = HashMap::from([
-            ("name".to_string(), "Alpha".to_string()),
-            ("team".to_string(), "red".to_string()),
-        ]);
-
-        let expected = Clientinfo {
-            name: Some("Alpha".to_string()),
-            team: Some("red".to_string()),
-            ..Default::default()
-        };
-
-        assert_eq!(Clientinfo::from(&map), expected);
+        assert_eq!(
+            Clientinfo::from(&HashMap::from([
+                ("name".to_string(), "Alpha".to_string()),
+                ("team".to_string(), "red".to_string()),
+            ])),
+            Clientinfo {
+                name: Some("Alpha".to_string()),
+                team: Some("red".to_string()),
+                ..Default::default()
+            }
+        );
     }
 }
