@@ -11,17 +11,21 @@ pub struct Clientinfo {
     pub bottomcolor: Option<i32>,
     pub spectator: Option<i32>,
     pub client: Option<String>,
+    pub bot: Option<i32>,
+    pub chat: Option<i32>,
 }
 
 impl From<&HashMap<String, String>> for Clientinfo {
     fn from(value: &HashMap<String, String>) -> Self {
         Self {
-            client: map_get_string(value, "*client"),
             name: map_get_string(value, "name"),
             team: map_get_string(value, "team"),
             topcolor: map_get_int(value, "topcolor"),
             bottomcolor: map_get_int(value, "bottomcolor"),
             spectator: map_get_int(value, "*spectator"),
+            client: map_get_string(value, "*client"),
+            bot: map_get_int(value, "*bot"),
+            chat: map_get_int(value, "chat"),
         }
     }
 }
@@ -56,18 +60,23 @@ mod tests {
 
     use super::*;
 
-    const INFO_STR: &str =
-        r#"\*client\libqwclient 0.1\*spectator\1\bottomcolor\11\topcolor\12\team\red\name\Alpha"#;
-
     #[test]
     fn test_from_str() {
-        let info = Clientinfo::from(INFO_STR);
-        assert_eq!(info.name, Some("Alpha".to_string()));
-        assert_eq!(info.team, Some("red".to_string()));
-        assert_eq!(info.topcolor, Some(12));
-        assert_eq!(info.bottomcolor, Some(11));
-        assert_eq!(info.spectator, Some(1));
-        assert_eq!(info.client, Some("libqwclient 0.1".to_string()));
+        assert_eq!(
+            Clientinfo::from(
+                r#"\*bot\1\*client\libqwclient 0.1\*spectator\1\bottomcolor\11\topcolor\12\team\red\name\Alpha"#
+            ),
+            Clientinfo {
+                name: Some("Alpha".to_string()),
+                team: Some("red".to_string()),
+                topcolor: Some(12),
+                bottomcolor: Some(11),
+                spectator: Some(1),
+                client: Some("libqwclient 0.1".to_string()),
+                bot: Some(1),
+                chat: None,
+            }
+        );
     }
 
     #[test]
