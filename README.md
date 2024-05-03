@@ -24,6 +24,8 @@ pub struct Clientinfo {
     pub bottomcolor: Option<i32>,
     pub spectator: Option<i32>,
     pub client: Option<String>,
+    pub bot: Option<i32>,
+    pub chat: Option<i32>,
 }
 ```
 
