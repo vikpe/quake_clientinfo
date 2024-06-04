@@ -10,6 +10,8 @@ pub struct Clientinfo {
     pub topcolor: Option<i32>,
     pub bottomcolor: Option<i32>,
     pub spectator: Option<i32>,
+    pub auth: Option<String>,
+    pub flag: Option<String>,
     pub client: Option<String>,
     pub bot: Option<i32>,
     pub chat: Option<i32>,
@@ -23,6 +25,8 @@ impl From<&HashMap<String, String>> for Clientinfo {
             topcolor: map_get_int(value, "topcolor"),
             bottomcolor: map_get_int(value, "bottomcolor"),
             spectator: map_get_int(value, "*spectator"),
+            flag: map_get_string(value, "*flag"),
+            auth: map_get_string(value, "*auth"),
             client: map_get_string(value, "*client"),
             bot: map_get_int(value, "*bot"),
             chat: map_get_int(value, "chat"),
@@ -64,7 +68,7 @@ mod tests {
     fn test_from_str() {
         assert_eq!(
             Clientinfo::from(
-                r#"\*bot\1\*client\libqwclient 0.1\*spectator\1\bottomcolor\11\topcolor\12\team\red\name\Alpha"#
+                r#"\*bot\1\*client\libqwclient 0.1\*spectator\1\bottomcolor\11\topcolor\12\team\red\name\Alpha\*auth\Alpha"#
             ),
             Clientinfo {
                 name: Some("Alpha".to_string()),
@@ -72,6 +76,8 @@ mod tests {
                 topcolor: Some(12),
                 bottomcolor: Some(11),
                 spectator: Some(1),
+                flag: None,
+                auth: Some("Alpha".to_string()),
                 client: Some("libqwclient 0.1".to_string()),
                 bot: Some(1),
                 chat: None,
